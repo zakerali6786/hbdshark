@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Little Something For You ✨</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sound Toggle Button -->
+  <button class="sound-toggle" id="soundToggle" title="Sound Effects: ON" aria-label="Toggle sound">
+    <span id="soundIcon">🔊</span>
+  </button>
+
+  <!-- Interactive Birthday Stage Container -->
+  <main class="stage-container" id="passcodeStage">
+    <div class="stage-card">
+
+      <!-- LEFT: Polaroid Frame with Developer-Changeable Photo & Laughing Emojis -->
+      <div class="left-artwork-col">
+        <div class="polaroid-frame-wrapper" id="polaroidWrapper">
+
+          <!-- DEVELOPER PHOTO: Change the image path below or replace 'assets/full_friend_photo.jpg' -->
+          <div class="user-photo-box" id="userPhotoBox">
+            <img src="assets/snap.jpeg" id="friendPhoto" class="friend-photo" alt="Birthday Special One">
+          </div>
+
+          <!-- Polaroid Frame Cover (White border, washi tape, balloons, champagne) -->
+          <img src="assets/polaroid_frame_clean_bottom.png" class="frame-overlay-img" alt="Polaroid Frame Cover">
+
+          <!-- Laughing Emojis on the bottom white margin of the Polaroid -->
+          <div class="polaroid-emojis-caption" aria-label="Laughing emojis">
+            <span>😂😂😂😂</span>
+          </div>
+
+          <!-- Ambient Twinkles over Polaroid & Champagne -->
+          <div class="ambient-sparkles">
+            <span class="sparkle sp-1">✦</span>
+            <span class="sparkle sp-2">✨</span>
+            <span class="sparkle sp-3">✦</span>
+            <span class="sparkle sp-4">✨</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Interactive Passcode Keypad Panel -->
+      <div class="right-keypad-col">
+        <div class="keypad-panel">
+
+          <!-- Keypad Header -->
+          <div class="keypad-header">
+            <p class="keypad-subtitle">A little something for you. ✦</p>
+            <h1 class="keypad-title">Enter a passcode</h1>
+          </div>
+
+          <!-- 4 Passcode Digits Display -->
+          <div class="passcode-display" id="passcodeDisplay" role="group" aria-label="4 digit passcode input">
+            <div class="passcode-slot" data-index="0"><span class="slot-text"></span></div>
+            <div class="passcode-slot" data-index="1"><span class="slot-text"></span></div>
+            <div class="passcode-slot" data-index="2"><span class="slot-text"></span></div>
+            <div class="passcode-slot" data-index="3"><span class="slot-text"></span></div>
+          </div>
+
+          <!-- Feedback Message Banner -->
+          <div class="feedback-banner" id="feedbackBanner" aria-live="polite"></div>
+
+          <!-- Keypad Grid (1-9, *, 0, #) -->
+          <div class="keypad-grid" id="keypadGrid">
+            <button type="button" class="keypad-btn" data-key="1">1</button>
+            <button type="button" class="keypad-btn" data-key="2">2</button>
+            <button type="button" class="keypad-btn" data-key="3">3</button>
+
+            <button type="button" class="keypad-btn" data-key="4">4</button>
+            <button type="button" class="keypad-btn" data-key="5">5</button>
+            <button type="button" class="keypad-btn" data-key="6">6</button>
+
+            <button type="button" class="keypad-btn" data-key="7">7</button>
+            <button type="button" class="keypad-btn" data-key="8">8</button>
+            <button type="button" class="keypad-btn" data-key="9">9</button>
+
+            <button type="button" class="keypad-btn symbol-btn" data-key="*">*</button>
+            <button type="button" class="keypad-btn" data-key="0">0</button>
+            <button type="button" class="keypad-btn symbol-btn" data-key="#" title="Backspace / Clear">#</button>
+          </div>
+
+          <!-- Enter Button -->
+          <div class="enter-btn-wrapper">
+            <button type="button" class="enter-btn" id="enterBtn">Enter</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- UNLOCKED CELEBRATION MODAL (Multi-step interactive flow) -->
+  <div class="celebration-overlay" id="celebrationOverlay">
+    <div class="celebration-card" id="celebrationCard">
+
+      <!-- STEP 1: Passcode Accepted + Are you sure you want to continue? -->
+      <div class="modal-step" id="modalStep1">
+        <h2 class="celebration-title">Passcode Accepted!</h2>
+        <p class="celebration-message">Are you sure you want to continue?</p>
+        <div class="celebration-buttons">
+          <button type="button" class="celebration-btn secondary" id="step1NoBtn">No</button>
+          <button type="button" class="celebration-btn primary" id="step1YesBtn">Yes</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Pakka Pakka ? + What If Cat + Yes/No Options -->
+      <div class="modal-step" id="modalStep2" style="display: none;">
+        <h2 class="celebration-title meme-title">pakka pakka ?</h2>
+        <div class="meme-img-container">
+          <img src="assets/what_if_cat.jpg" class="modal-meme-img what-if-cat" alt="What if cat">
+        </div>
+        <div class="celebration-buttons">
+          <button type="button" class="celebration-btn secondary" id="step2NoBtn">No</button>
+          <button type="button" class="celebration-btn primary" id="step2YesBtn">Yes</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Kyu nhi ?????? + Sad Cat + Continue karna padhta -->
+      <div class="modal-step" id="modalStep3" style="display: none;">
+        <h2 class="celebration-title meme-title">kyu nhi ??????</h2>
+        <div class="meme-img-container">
+          <img src="assets/sad_cat.png" class="modal-meme-img sad-cat" alt="Sad cat">
+        </div>
+        <div class="celebration-buttons">
+          <button type="button" class="celebration-btn primary continue-force-btn" id="step3ContinueBtn">continue karna
+            padhta</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WRONG PASSCODE ERROR POPUP (With Boo / Womp-Womp Sound) -->
+  <div class="error-overlay" id="errorOverlay" aria-modal="true" role="dialog">
+    <div class="error-card">
+      <div class="error-badge">❌ ACCESS DENIED 👻</div>
+      <div class="error-emoji">👻 👎 😜</div>
+      <h2 class="error-title">Booo! Wrong Passcode!</h2>
+      <p class="error-message">
+        Oops! That is <em>not</em> the secret birthday code.<br>
+        Think you can guess it? Try again!
+      </p>
+      <div class="error-buttons">
+        <button type="button" class="error-btn" id="errorTryAgainBtn">🔄 Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: BIRTHDAY CELEBRATION (Dark Room -> Candle Lighting -> Lights On & Poppers -> Happy Birthday Shark 🦈) -->
+  <section class="page2-container dark-mode" id="page2Container" style="display: none;"
+    aria-label="Birthday Celebration Stage">
+
+    <!-- Top Floating Navigation -->
+    <header class="page2-header">
+      <button type="button" class="page2-nav-btn" id="backToLockBtn" title="Back to lock screen">
+        🔒 Lock Screen
+      </button>
+      <button type="button" class="page2-nav-btn replay-btn" id="replayCelebrationBtn"
+        title="Replay celebration sequence">
+        ↺ Relight & Replay
+      </button>
+    </header>
+
+    <!-- Top Ceiling Party Bunting & Fairy Lights (Glows when lights turn on) -->
+    <div class="party-decorations" id="partyDecorations">
+      <div class="bunting-string">
+        <span class="flag f1"></span><span class="flag f2"></span><span class="flag f3"></span>
+        <span class="flag f4"></span><span class="flag f5"></span><span class="flag f6"></span>
+        <span class="flag f7"></span><span class="flag f8"></span><span class="flag f9"></span>
+        <span class="flag f10"></span><span class="flag f11"></span><span class="flag f12"></span>
+      </div>
+      <div class="fairy-lights">
+        <span class="bulb b1"></span><span class="bulb b2"></span><span class="bulb b3"></span>
+        <span class="bulb b4"></span><span class="bulb b5"></span><span class="bulb b6"></span>
+        <span class="bulb b7"></span><span class="bulb b8"></span>
+      </div>
+    </div>
+
+    <!-- Main Celebration Content -->
+    <div class="page2-content">
+
+      <!-- Stage Heading: "Happy Birthday Shark 🦈" (Animates in when lights turn on) -->
+      <div class="shark-headline-box" id="sharkHeadlineContainer">
+        <div class="headline-tag">✦ SPECIAL BIRTHDAY WISHES ✦</div>
+        <h1 class="shark-headline-text">
+          Happy Birthday Shark <span class="shark-emoji">🦈</span>
+        </h1>
+        <p class="shark-subtext">May your special year be filled with boundless joy, magic, and sweet memories! ✨🎂</p>
+      </div>
+
+      <!-- Center Cake & Candle Stage -->
+      <div class="cake-stage-wrapper" id="cakeStageWrapper">
+
+        <!-- Ambient Candlelight Halo (Expands in dark as candles light) -->
+        <div class="candlelight-halo" id="candlelightHalo"></div>
+
+        <!-- Left Party Popper -->
+        <div class="party-popper left-popper" id="leftPopper" aria-hidden="true">
+          <div class="popper-emoji">🎉</div>
+          <div class="popper-streamers">
+            <span class="streamer st-1"></span>
+            <span class="streamer st-2"></span>
+            <span class="streamer st-3"></span>
+          </div>
+        </div>
+
+        <!-- The Birthday Cake -->
+        <div class="birthday-cake" id="birthdayCake" role="img" aria-label="Birthday Cake with lit candles">
+
+          <!-- Cake Layers Container -->
+          <div class="cake-layers-container">
+
+            <!-- Row of 5 Candles -->
+            <div class="candles-row" id="candlesRow">
+
+              <!-- Candle 1 -->
+              <div class="candle-item" data-candle="1">
+                <div class="flame-wrapper">
+                  <div class="candle-flame"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick candle-gold"></div>
+              </div>
+
+              <!-- Candle 2 -->
+              <div class="candle-item" data-candle="2">
+                <div class="flame-wrapper">
+                  <div class="candle-flame"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick candle-rose"></div>
+              </div>
+
+              <!-- Candle 3 (Center / Tall) -->
+              <div class="candle-item candle-center" data-candle="3">
+                <div class="flame-wrapper">
+                  <div class="candle-flame"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick candle-mint"></div>
+              </div>
+
+              <!-- Candle 4 -->
+              <div class="candle-item" data-candle="4">
+                <div class="flame-wrapper">
+                  <div class="candle-flame"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick candle-rose"></div>
+              </div>
+
+              <!-- Candle 5 -->
+              <div class="candle-item" data-candle="5">
+                <div class="flame-wrapper">
+                  <div class="candle-flame"></div>
+                  <div class="flame-glow"></div>
+                </div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick candle-gold"></div>
+              </div>
+
+            </div>
+
+            <!-- Top Tier (Smaller Tier) -->
+            <div class="tier tier-top">
+              <div class="frosting-drips top-drips">
+                <span class="drip dp-1"></span>
+                <span class="drip dp-2"></span>
+                <span class="drip dp-3"></span>
+                <span class="drip dp-4"></span>
+                <span class="drip dp-5"></span>
+              </div>
+              <div class="tier-frosting-strip"></div>
+              <div class="cake-sprinkles">
+                <span class="sp sp-1"></span>
+                <span class="sp sp-2"></span>
+                <span class="sp sp-3"></span>
+                <span class="sp sp-4"></span>
+                <span class="sp sp-5"></span>
+                <span class="sp sp-6"></span>
+              </div>
+            </div>
+
+            <!-- Bottom Tier (Larger Tier) -->
+            <div class="tier tier-bottom" id="tierBottom">
+
+              <!-- Cavity inside cake revealed when slice is cut -->
+              <div class="cake-slice-cavity" id="sliceCavity">
+                <div class="cavity-interior">
+                  <span class="sponge-layer sl-top"></span>
+                  <span class="jam-layer"></span>
+                  <span class="sponge-layer sl-bot"></span>
+                </div>
+              </div>
+
+              <!-- The Cut Cake Slice (Slides smoothly outward) -->
+              <div class="cake-slice-cut" id="sliceCut">
+                <div class="slice-frosting"></div>
+                <div class="slice-strawberry">🍓</div>
+                <div class="slice-drip"></div>
+              </div>
+
+              <!-- Front Frosting Drips & Strawberries -->
+              <div class="frosting-drips">
+                <span class="drip dp-1"></span>
+                <span class="drip dp-2"></span>
+                <span class="drip dp-3"></span>
+                <span class="drip dp-4"></span>
+                <span class="drip dp-5"></span>
+                <span class="drip dp-6"></span>
+              </div>
+              <div class="tier-frosting-strip"></div>
+              <div class="tier-strawberries">
+                <span>🍓</span><span>🍓</span><span>🍓</span><span>🍓</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Cake Stand Plate & Pedestal Base -->
+          <div class="cake-stand-plate"></div>
+          <div class="cake-stand-base"></div>
+
+        </div>
+
+        <!-- Magic Paper Plane (Emerges pointing to the right, ready for memory flight) -->
+        <div class="magic-paper-plane" id="magicPaperPlane" role="button" tabindex="0"
+          aria-label="Fly to the memory map">
+          <div class="paper-plane-glow"></div>
+
+          <!-- Origami SVG Paper Airplane pointing right (+X axis) -->
+          <svg class="plane-svg" viewBox="0 0 100 64" width="85" height="54" aria-hidden="true">
+            <!-- Top Wing (Light) -->
+            <polygon points="94,32 10,8 36,32" fill="#ffffff" stroke="#ded0bb" stroke-width="1.2" />
+            <!-- Bottom Wing (Shaded) -->
+            <polygon points="94,32 10,56 36,32" fill="#f5ebe0" stroke="#dfcbaf" stroke-width="1.2" />
+            <!-- Center Keel Fold -->
+            <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
+            <!-- Center Spine Line -->
+            <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
+            <!-- Heart Stamp on Wing -->
+            <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+          </svg>
+
+          <!-- Floating Interactive Badge -->
+          <div class="plane-click-hint">
+            <span class="hint-text">Fly with me! ✈️</span>
+          </div>
+
+          <!-- Ambient Sparkles -->
+          <div class="plane-sparkles">
+            <span class="ps ps-1">✦</span>
+            <span class="ps ps-2">✨</span>
+            <span class="ps ps-3">✦</span>
+          </div>
+        </div>
+
+        <!-- Right Party Popper -->
+        <div class="party-popper right-popper" id="rightPopper" aria-hidden="true">
+          <div class="popper-emoji">🎉</div>
+          <div class="popper-streamers">
+            <span class="streamer st-1"></span>
+            <span class="streamer st-2"></span>
+            <span class="streamer st-3"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button: Make a Wish & Blow the Candles -->
+      <div class="page2-actions" id="page2Actions">
+        <button type="button" class="blow-candles-btn" id="blowCandlesBtn">
+          🎂 Make a Wish & Blow the Candles! 💨
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CLOUD FLIGHT TRANSITION OVERLAY (Paper plane flying left to right through sky clouds) -->
+  <div class="cloud-transition-overlay" id="cloudTransitionOverlay" style="display: none;" aria-hidden="true">
+    <div class="sky-backdrop"></div>
+
+    <!-- Moving Paper Plane in Flight -->
+    <div class="transition-flying-plane" id="transitionFlyingPlane">
+      <svg class="plane-svg" viewBox="0 0 100 64" width="105" height="66">
+        <polygon points="94,32 10,8 36,32" fill="#ffffff" stroke="#ded0bb" stroke-width="1.2" />
+        <polygon points="94,32 10,56 36,32" fill="#f5ebe0" stroke="#dfcbaf" stroke-width="1.2" />
+        <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
+        <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
+        <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+      </svg>
+      <div class="flight-wind-trail">
+        <span class="w-line wl-1"></span>
+        <span class="w-line wl-2"></span>
+        <span class="w-line wl-3"></span>
+      </div>
+    </div>
+
+    <!-- Fluffy Clouds Streaming Past -->
+    <div class="transition-clouds">
+      <div class="cloud-puff cp-1">☁️</div>
+      <div class="cloud-puff cp-2">☁️</div>
+      <div class="cloud-puff cp-3">☁️</div>
+      <div class="cloud-puff cp-4">☁️</div>
+      <div class="cloud-puff cp-5">☁️</div>
+      <div class="cloud-puff cp-6">☁️</div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: FULL SCREEN MEMORY FLIGHT MAP -->
+  <section class="flight-map-page" id="flightMapPage" style="display: none;" aria-label="Shark's Journey of Memories">
+
+    <!-- Top Travel Header -->
+    <header class="map-top-bar">
+      <button type="button" class="page2-nav-btn" id="mapBackToCakeBtn">
+        🎂 Back to Cake
+      </button>
+
+      <div class="flight-boarding-tag">
+        <span class="tag-label">BOARDING PASS</span>
+        <span class="tag-title">THE ADVENTURE MAP 🗺️ • SHARK'S MEMORY FLIGHT ✈️</span>
+      </div>
+
+      <button type="button" class="page2-nav-btn replay-map-btn" id="replayMapFlightBtn">
+        ↺ Restart Flight
+      </button>
+    </header>
+
+    <!-- Map Viewport Window -->
+    <div class="map-viewport-window" id="mapViewportWindow">
+      <!-- Panning Canvas (3700px wide, 840px high) -->
+      <div class="map-panning-canvas" id="mapPanningCanvas">
+
+        <!-- Ambient Clouds, Isles & Compass Decor -->
+        <div class="map-ambient-decor">
+          <div class="compass-rose" aria-hidden="true">🧭</div>
+          <div class="map-cloud mc-1">☁️</div>
+          <div class="map-cloud mc-2">☁️</div>
+          <div class="map-cloud mc-3">☁️</div>
+          <div class="map-cloud mc-4">☁️</div>
+          <div class="map-cloud mc-5">☁️</div>
+          <div class="map-cloud mc-6">☁️</div>
+          <div class="map-isle is-1" aria-hidden="true">🏝️</div>
+          <div class="map-isle is-2" aria-hidden="true">⛰️</div>
+          <div class="map-isle is-3" aria-hidden="true">🏰</div>
+          <div class="map-isle is-4" aria-hidden="true">🌴</div>
+        </div>
+
+        <!-- SVG Dotted Flight Path (3700 x 840) -->
+        <svg class="flight-path-svg" id="flightPathSvg" viewBox="0 0 3700 840" preserveAspectRatio="none">
+          <defs>
+            <!-- Mask for progressive flight travel: reveals highlighted orange dots -->
+            <mask id="trackMask" maskUnits="userSpaceOnUse">
+              <path id="trackMaskPath"
+                d="M 480,150 C 800,150 1120,670 1440,670 C 1760,670 2080,150 2400,150 C 2680,150 3000,670 3280,670"
+                fill="none" stroke="#ffffff" stroke-width="32" stroke-linecap="round" />
+            </mask>
+          </defs>
+
+          <!-- Ambient Entry & Exit Decorative Dotted Flight Paths -->
+          <path class="flight-track decor-track" d="M 80,240 C 220,240 340,150 480,150" />
+          <path class="flight-track decor-track" d="M 3280,670 C 3420,670 3540,580 3650,580" />
+
+          <!-- Track Soft Drop Shadow -->
+          <path class="track-shadow"
+            d="M 480,150 C 800,150 1120,670 1440,670 C 1760,670 2080,150 2400,150 C 2680,150 3000,670 3280,670" />
+
+          <!-- BASE DOTTED FLIGHT TRACK (Always 100% visible across entire map) -->
+          <path id="flightTrack" class="flight-track"
+            d="M 480,150 C 800,150 1120,670 1440,670 C 1760,670 2080,150 2400,150 C 2680,150 3000,670 3280,670" />
+
+          <!-- TRAVELED PROGRESS DOTTED TRACK (Highlighted warm orange dots revealed as plane flies) -->
+          <path id="flightTrackProgress" class="flight-track-progress" mask="url(#trackMask)"
+            d="M 480,150 C 800,150 1120,670 1440,670 C 1760,670 2080,150 2400,150 C 2680,150 3000,670 3280,670" />
+        </svg>
+
+        <!-- 4 Checkpoint Milestone Markers (Clean Numbered Pins + Waypoint Dots) -->
+        <div class="map-checkpoint-pins">
+          <div class="checkpoint-pin pin-1 active" data-stop="0" role="button" tabindex="0" aria-label="Checkpoint 1"
+            style="left: 480px; top: 150px;">
+            <div class="pin-marker"><span>1</span></div>
+            <div class="pin-halo"></div>
+            <div class="pin-waypoint-dot"></div>
+          </div>
+          <div class="checkpoint-pin pin-2" data-stop="1" role="button" tabindex="0" aria-label="Checkpoint 2"
+            style="left: 1440px; top: 670px;">
+            <div class="pin-marker"><span>2</span></div>
+            <div class="pin-halo"></div>
+            <div class="pin-waypoint-dot"></div>
+          </div>
+          <div class="checkpoint-pin pin-3" data-stop="2" role="button" tabindex="0" aria-label="Checkpoint 3"
+            style="left: 2400px; top: 150px;">
+            <div class="pin-marker"><span>3</span></div>
+            <div class="pin-halo"></div>
+            <div class="pin-waypoint-dot"></div>
+          </div>
+          <div class="checkpoint-pin pin-4" data-stop="3" role="button" tabindex="0" aria-label="Checkpoint 4"
+            style="left: 3280px; top: 670px;">
+            <div class="pin-marker"><span>4</span></div>
+            <div class="pin-halo"></div>
+            <div class="pin-waypoint-dot"></div>
+          </div>
+        </div>
+
+        <!-- Active Flying Paper Plane on the Map Track -->
+        <div class="map-flying-plane" id="mapFlyingPlane" role="button" tabindex="0"
+          aria-label="Paper airplane (Click to view memory)"
+          style="left: 480px; top: 150px; transform: translate(-50%, -50%) rotate(0deg);">
+          <svg viewBox="0 0 100 64" width="72" height="46">
+            <polygon points="94,32 10,8 36,32" fill="#ffffff" stroke="#ded0bb" stroke-width="1.2" />
+            <polygon points="94,32 10,56 36,32" fill="#f5ebe0" stroke="#dfcbaf" stroke-width="1.2" />
+            <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
+            <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
+            <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+          </svg>
+          <div class="plane-landing-sparkle">✨</div>
+        </div>
+
+        <!-- SPEECH BUBBLE MEMORY POPUP (Enlarged 520px, anchored neatly with pointer tail) -->
+        <div class="map-speech-bubble placement-bottom" id="mapSpeechBubble" style="display: none;" role="dialog"
+          aria-modal="false" aria-label="Memory details">
+          <!-- Directional Pointer Tail -->
+          <div class="bubble-tail"></div>
+
+          <!-- Close Button -->
+          <button type="button" class="bubble-close-btn" id="bubbleCloseBtn" title="Close memory"
+            aria-label="Close memory preview">✕</button>
+
+          <!-- Framed Memory Photograph -->
+          <div class="bubble-photo-frame">
+            <img src="assets/memory1.jpg" id="bubblePhoto" class="bubble-photo-img" alt="Memory Photo">
+            <div class="bubble-photo-tape"></div>
+          </div>
+
+          <!-- Content: Title & 1 to 2 Lines -->
+          <div class="bubble-content">
+            <h3 class="bubble-title" id="bubbleTitle">Where It All Began ✨</h3>
+            <p class="bubble-caption" id="bubbleCaption">
+              From the very first day we crossed paths, who knew we’d end up sharing countless unforgettable memories,
+              nonstop laughs, and inside jokes!
+            </p>
+
+            <!-- Navigation Controls inside the Speech Bubble -->
+            <div class="bubble-controls">
+              <button type="button" class="bubble-nav-btn prev-btn" id="bubblePrevBtn" disabled>
+                ← Prev
+              </button>
+              <button type="button" class="bubble-nav-btn next-btn" id="bubbleNextBtn">
+                Fly to Next Stop ✈️
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- UNLOCKED PAPER PLANE BIRTHDAY LETTER MODAL -->
+  <div class="letter-overlay" id="letterOverlay" aria-modal="true" role="dialog" style="display: none;">
+    <div class="letter-card">
+      <button type="button" class="letter-close-btn" id="letterCloseBtn" aria-label="Close letter">✕</button>
+      <div class="letter-washi-tape"></div>
+      <div class="letter-stamp">💌 FOR SHARK 🦈</div>
+
+      <div class="letter-body">
+        <h2 class="letter-greeting">Dearest Shark 🦈,</h2>
+        <p class="letter-paragraph">
+          Happy Birthday! 🎉🎂<br>
+          Today is all about celebrating you — your energy, your humor, and all the light and joy you bring to everyone
+          around you.
+        </p>
+        <p class="letter-paragraph">
+          May this coming year be your most incredible adventure yet, packed with exciting breakthroughs, boundless
+          laughter, and memories you'll treasure forever!
+        </p>
+        <p class="letter-paragraph">
+          Never stop being your wonderful, unforgettable self. Wishing you the happiest birthday of all time! ✨
+        </p>
+
+        <div class="letter-signature">
+          <span class="sig-with-love">With all the best wishes & happiness,</span>
+          <span class="sig-name">Your Best Friend ♡</span>
+        </div>
+      </div>
+
+      <div class="letter-actions">
+        <button type="button" class="celebration-btn primary" id="closeLetterBtn">Fold & Keep 💌</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
