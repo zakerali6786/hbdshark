@@ -1,0 +1,6 @@
+# Temporary test captures and runner scripts
+test_*.png
+test_*.js
+*.log
+.DS_Store
+Thumbs.db

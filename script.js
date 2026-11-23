@@ -4,7 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const CORRECT_PASSCODE = '0911';
+  const CORRECT_PASSCODE = '9820';
   const MAX_DIGITS = 4;
 
   let currentPasscode = '';
@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
       y: 150,
       placement: 'bottom',
       title: 'Where It All Began ✨',
-      image: 'assets/memory1.jpg',
+      image: 'assets/map/1.jpeg',
+      objectPosition: 'center center',
       caption: 'From the very first day we crossed paths, who knew we’d end up sharing countless unforgettable memories, nonstop laughs, and inside jokes!'
     },
     {
@@ -87,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
       y: 670,
       placement: 'top',
       title: 'Unfiltered Laughter & Chaos 😂',
-      image: 'assets/memory2.jpg',
+      image: 'assets/map/2.jpeg',
+      objectPosition: 'center 12%',
       caption: 'The kind of uncontrollable laughing fits where our stomachs hurt and nobody else understands what’s even funny except us.'
     },
     {
@@ -97,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
       y: 150,
       placement: 'bottom',
       title: 'Adventures & Midnight Talks 🚗',
-      image: 'assets/memory3.jpg',
+      image: 'assets/map/3.jpeg',
+      objectPosition: 'center center',
       caption: 'Spontaneous food runs, endless late-night drives, deep talks, and all the random escapades that made everyday life feel like a movie.'
     },
     {
@@ -107,7 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
       y: 670,
       placement: 'top',
       title: 'To Forever & Beyond 🌟',
-      image: 'assets/memory4.jpg',
+      image: 'assets/map/4.jpeg',
+      objectPosition: 'center center',
       caption: 'Here’s to another year of being an absolute legend. No matter where life takes us, you’ll always have a best friend in me. Happy Birthday Shark 🦈!'
     }
   ];
@@ -1159,6 +1163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bubblePhoto) {
       bubblePhoto.src = data.image;
       bubblePhoto.alt = data.title;
+      bubblePhoto.style.objectPosition = data.objectPosition || 'center center';
     }
     if (bubbleTitle) bubbleTitle.textContent = data.title;
     if (bubbleCaption) bubbleCaption.textContent = data.caption;
@@ -1171,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (stopIndex < MEMORY_CHECKPOINTS.length - 1) {
         bubbleNextBtn.textContent = 'Fly to Next Stop ✈️';
       } else {
-        bubbleNextBtn.textContent = 'Read Birthday Note 💌';
+        bubbleNextBtn.textContent = 'AAGE ➔';
       }
     }
 
@@ -1350,8 +1355,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentStopIndex < MEMORY_CHECKPOINTS.length - 1) {
         flyPlaneToStop(currentStopIndex + 1);
       } else {
-        // At final destination, reveal the heartfelt birthday letter
-        openLetterModal();
+        // At final destination, transition to Page 4: Projector Cinema
+        launchProjectorTransition();
       }
     });
   }
@@ -1412,12 +1417,669 @@ document.addEventListener('DOMContentLoaded', () => {
     closeLetterBtn.addEventListener('click', closeLetterModal);
   }
 
+  // ========================================================
+  // PAGE 4: PROJECTOR CINEMA & VIDEO SCREENING
+  // ========================================================
+  const blackoutOverlay = document.getElementById('blackoutOverlay');
+  const projectorCinemaPage = document.getElementById('projectorCinemaPage');
+  const cinemaBackToMapBtn = document.getElementById('cinemaBackToMapBtn');
+  const cinemaBackToCakeBtn = document.getElementById('cinemaBackToCakeBtn');
+  const replayCountdownBtn = document.getElementById('replayCountdownBtn');
+  const cinemaOpenLetterBtn = document.getElementById('cinemaOpenLetterBtn');
+  const cinemaHallStage = document.getElementById('cinemaHallStage');
+  const projectorWrapper = document.getElementById('projectorWrapper');
+  const projectorLensEmitter = document.getElementById('projectorLensEmitter');
+  const volumetricBeamContainer = document.getElementById('volumetricBeamContainer');
+  const beamSvgPolygon = document.getElementById('beamSvgPolygon');
+  const cinemaProjectionScreen = document.getElementById('cinemaProjectionScreen');
+  const screenLightFlash = document.getElementById('screenLightFlash');
+  const countdownLeaderLayer = document.getElementById('countdownLeaderLayer');
+  const countdownNumberDisplay = document.getElementById('countdownNumberDisplay');
+  const screenContentLayer = document.getElementById('screenContentLayer');
+  const friendVideoPlayer = document.getElementById('friendVideoPlayer');
+  const cinemaActivePhoto = document.getElementById('cinemaActivePhoto');
+  const ctrlPlayPauseBtn = document.getElementById('ctrlPlayPauseBtn');
+  const playPauseIcon = document.getElementById('playPauseIcon');
+  const ctrlPrevBtn = document.getElementById('ctrlPrevBtn');
+  const ctrlNextBtn = document.getElementById('ctrlNextBtn');
+  const screenChevronPrev = document.getElementById('screenChevronPrev');
+  const screenChevronNext = document.getElementById('screenChevronNext');
+  const screenTypeIcon = document.getElementById('screenTypeIcon');
+  const screenTypeText = document.getElementById('screenTypeText');
+  const screenCounter = document.getElementById('screenCounter');
+  const pillModeAll = document.getElementById('pillModeAll');
+  const pillModePhotos = document.getElementById('pillModePhotos');
+  const pillModeVideos = document.getElementById('pillModeVideos');
+  const cinemaMediaInput = document.getElementById('cinemaMediaInput');
+  const subBadge = document.getElementById('subBadge');
+  const subText = document.getElementById('subText');
+  const ctrlScrubberContainer = document.getElementById('ctrlScrubberContainer');
+  const ctrlScrubberTrack = document.getElementById('ctrlScrubberTrack');
+  const scrubberProgressBar = document.getElementById('scrubberProgressBar');
+  const ctrlTimeDisplay = document.getElementById('ctrlTimeDisplay');
+  const ctrlVolumeBtn = document.getElementById('ctrlVolumeBtn');
+  const volumeIcon = document.getElementById('volumeIcon');
+  const ctrlFullscreenBtn = document.getElementById('ctrlFullscreenBtn');
+
+  // Master Unified Cinema Playlist: Images & Videos from assets/shark
+  const masterCinemaPlaylist = [
+    {
+      type: 'image',
+      src: 'assets/takla.jpeg',
+      chapter: 'CHAPTER 00',
+      text: 'The legend of Shark begins... ✨ Happy Birthday!',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen1.jpeg',
+      chapter: 'CHAPTER 01',
+      text: 'The legend of Shark begins... ✨ Happy Birthday!',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen2.jpeg',
+      chapter: 'CHAPTER 02',
+      text: 'Unfiltered laughter, crazy energy, and chaos with Shark 😂',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen3.jpeg',
+      chapter: 'CHAPTER 03',
+      text: 'Adventures, midnight runs & unforgettable memories 🚗',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen4.jpeg',
+      chapter: 'CHAPTER 04',
+      text: 'Moments that became unforgettable lifelong memories 🌟',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen5.jpeg',
+      chapter: 'CHAPTER 05',
+      text: 'Unfiltered candid snaps & pure joy 📸',
+      duration: 3
+    },
+    {
+      type: 'image',
+      src: 'assets/shark/screen6.jpeg',
+      chapter: 'CHAPTER 06',
+      text: 'Squad goals & legendary times with Shark 🦈',
+      duration: 3
+    },
+    {
+      type: 'video',
+      src: 'assets/shark/screen7.mp4',
+      chapter: 'FEATURE SCENE 01',
+      text: 'Shark’s Birthday Feature Screening 🎬',
+      duration: 15
+    },
+    {
+      type: 'video',
+      src: 'assets/shark/screen8.mp4',
+      chapter: 'FEATURE SCENE 02',
+      text: 'The Ultimate Shark Highlight Reel 🦈🎥',
+      duration: 15
+    }
+  ];
+
+  let currentCinemaMode = 'all'; // 'all' | 'photos' | 'videos'
+  let activeCinemaList = [...masterCinemaPlaylist];
+  let currentMediaIndex = 0;
+  let isCinemaPlaying = true;
+  let photoElapsed = 0;
+  let photoSlideTimer = null;
+  let isScrubbing = false;
+  let wasPlayingBeforeScrub = false;
+  let countdownTimerId = null;
+
+  // Format seconds to MM:SS
+  function formatTime(seconds) {
+    if (isNaN(seconds) || seconds < 0) return '00:00';
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  // Classic 1000Hz vintage cine countdown beep
+  function playCountdownBeep() {
+    if (!soundEnabled) return;
+    initAudio();
+    if (!audioCtx) return;
+    try {
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1000, now);
+      gain.gain.setValueAtTime(0.22, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } catch (e) {
+      console.warn('Countdown beep error:', e);
+    }
+  }
+
+  // Dynamically calculate volumetric beam polygon from lens to screen corners
+  function updateBeamGeometry() {
+    if (!projectorLensEmitter || !cinemaProjectionScreen || !beamSvgPolygon || !cinemaHallStage) return;
+    const hallRect = cinemaHallStage.getBoundingClientRect();
+    const lensRect = projectorLensEmitter.getBoundingClientRect();
+    const screenRect = cinemaProjectionScreen.getBoundingClientRect();
+
+    if (hallRect.width === 0 || lensRect.width === 0 || screenRect.width === 0) return;
+
+    // Lens emission point
+    const lx = lensRect.right - hallRect.left - 4;
+    const ly = (lensRect.top + lensRect.bottom) / 2 - hallRect.top;
+
+    // Screen corners (top-left & bottom-left)
+    const sx = screenRect.left - hallRect.left + 2;
+    const st = screenRect.top - hallRect.top;
+    const sb = screenRect.bottom - hallRect.top;
+
+    const points = `${lx},${ly - 10} ${sx},${st} ${sx},${sb} ${lx},${ly + 10}`;
+    beamSvgPolygon.setAttribute('points', points);
+  }
+  window.updateBeamGeometry = updateBeamGeometry;
+
+  // Launch transition from Map to Projector Cinema
+  function launchProjectorTransition() {
+    hideSpeechBubble();
+
+    // 1. Sudden blackout cut!
+    if (blackoutOverlay) {
+      blackoutOverlay.style.display = 'block';
+      blackoutOverlay.classList.remove('active');
+      void blackoutOverlay.offsetWidth;
+      blackoutOverlay.classList.add('active');
+    }
+
+    // 2. Switch containers behind blackout
+    setTimeout(() => {
+      if (flightMapPage) flightMapPage.style.display = 'none';
+      if (passcodeStage) passcodeStage.style.display = 'none';
+      if (page2Container) page2Container.style.display = 'none';
+      if (projectorCinemaPage) projectorCinemaPage.style.display = 'flex';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Standby state
+      if (projectorWrapper) projectorWrapper.classList.remove('powered-on');
+      if (volumetricBeamContainer) volumetricBeamContainer.classList.remove('active');
+      if (cinemaProjectionScreen) cinemaProjectionScreen.classList.remove('illuminated');
+      if (countdownLeaderLayer) countdownLeaderLayer.style.display = 'flex';
+      if (screenContentLayer) screenContentLayer.style.display = 'none';
+    }, 450);
+
+    // 3. Fade out blackout after suspense beat (~850ms)
+    setTimeout(() => {
+      if (blackoutOverlay) {
+        blackoutOverlay.classList.remove('active');
+        setTimeout(() => {
+          blackoutOverlay.style.display = 'none';
+        }, 400);
+      }
+    }, 850);
+
+    // 4. Projector ignition sequence (~1450ms)
+    setTimeout(() => {
+      if (projectorWrapper) projectorWrapper.classList.add('powered-on');
+      if (volumetricBeamContainer) volumetricBeamContainer.classList.add('active');
+      if (cinemaProjectionScreen) cinemaProjectionScreen.classList.add('illuminated');
+
+      updateBeamGeometry();
+
+      // Start the 3-2-1 old movie countdown
+      startCountdownSequence();
+    }, 1450);
+  }
+  window.launchProjectorTransition = launchProjectorTransition;
+
+  // Old Movie 3-2-1 Countdown Sequence
+  function startCountdownSequence() {
+    if (countdownTimerId) clearInterval(countdownTimerId);
+    stopCinemaPlayback();
+
+    if (friendVideoPlayer) {
+      friendVideoPlayer.pause();
+      friendVideoPlayer.currentTime = 0;
+    }
+
+    if (countdownLeaderLayer) countdownLeaderLayer.style.display = 'flex';
+    if (screenContentLayer) screenContentLayer.style.display = 'none';
+
+    let count = 3;
+    if (countdownNumberDisplay) countdownNumberDisplay.textContent = '3';
+    playCountdownBeep();
+
+    countdownTimerId = setInterval(() => {
+      count--;
+      if (count > 0) {
+        if (countdownNumberDisplay) countdownNumberDisplay.textContent = `${count}`;
+        playCountdownBeep();
+      } else {
+        clearInterval(countdownTimerId);
+        countdownTimerId = null;
+
+        // White screen flash (film splice)
+        if (screenLightFlash) {
+          screenLightFlash.classList.add('flash');
+          setTimeout(() => {
+            screenLightFlash.classList.remove('flash');
+          }, 180);
+        }
+
+        // Reveal the video / film showcase layer
+        if (countdownLeaderLayer) countdownLeaderLayer.style.display = 'none';
+        if (screenContentLayer) screenContentLayer.style.display = 'flex';
+
+        // Start playback
+        startCinemaShowcase();
+      }
+    }, 1000);
+  }
+
+  // ================= UNIFIED CINEMA HYBRID MEDIA ENGINE (PHOTOS & VIDEOS) =================
+  function filterCinemaPlaylist(mode) {
+    currentCinemaMode = mode;
+    [pillModeAll, pillModePhotos, pillModeVideos].forEach(p => {
+      if (p) p.classList.remove('active');
+    });
+    if (mode === 'photos') {
+      if (pillModePhotos) pillModePhotos.classList.add('active');
+      activeCinemaList = masterCinemaPlaylist.filter(i => i.type === 'image');
+    } else if (mode === 'videos') {
+      if (pillModeVideos) pillModeVideos.classList.add('active');
+      activeCinemaList = masterCinemaPlaylist.filter(i => i.type === 'video');
+      if (activeCinemaList.length === 0) {
+        activeCinemaList = masterCinemaPlaylist.slice(0, 1);
+      }
+    } else {
+      if (pillModeAll) pillModeAll.classList.add('active');
+      activeCinemaList = [...masterCinemaPlaylist];
+    }
+    currentMediaIndex = 0;
+    renderCurrentMedia();
+  }
+
+  function stopCinemaPlayback() {
+    if (photoSlideTimer) {
+      clearInterval(photoSlideTimer);
+      photoSlideTimer = null;
+    }
+    if (friendVideoPlayer) {
+      friendVideoPlayer.pause();
+    }
+  }
+
+  // Render currently selected memory (Photo or Video) on the cinema projection screen
+  function renderCurrentMedia() {
+    stopCinemaPlayback();
+    photoElapsed = 0;
+
+    if (!activeCinemaList || activeCinemaList.length === 0) return;
+    if (currentMediaIndex >= activeCinemaList.length) currentMediaIndex = 0;
+    if (currentMediaIndex < 0) currentMediaIndex = activeCinemaList.length - 1;
+
+    const item = activeCinemaList[currentMediaIndex];
+
+    // Update Counter & Badge
+    if (screenCounter) {
+      screenCounter.textContent = `${currentMediaIndex + 1} / ${activeCinemaList.length}`;
+    }
+    if (screenTypeIcon && screenTypeText) {
+      if (item.type === 'video') {
+        screenTypeIcon.textContent = '🎬';
+        screenTypeText.textContent = 'VIDEO';
+      } else {
+        screenTypeIcon.textContent = '📸';
+        screenTypeText.textContent = 'PHOTO';
+      }
+    }
+
+    if (subBadge) subBadge.textContent = item.chapter || 'CHAPTER 01';
+    if (subText) subText.textContent = item.text || 'Happy Birthday Shark! ✨';
+
+    updateUnifiedScrubber();
+
+    if (item.type === 'image') {
+      // Hide Video Player
+      if (friendVideoPlayer) {
+        friendVideoPlayer.style.display = 'none';
+        friendVideoPlayer.pause();
+      }
+      // Show Photo with smooth cinematic transition
+      if (cinemaActivePhoto) {
+        cinemaActivePhoto.style.display = 'block';
+        cinemaActivePhoto.classList.remove('active');
+        void cinemaActivePhoto.offsetWidth;
+        cinemaActivePhoto.src = item.src;
+        cinemaActivePhoto.classList.add('active');
+      }
+
+      if (isCinemaPlaying) {
+        if (playPauseIcon) playPauseIcon.textContent = '⏸️';
+        photoSlideTimer = setInterval(() => {
+          photoElapsed += 0.1;
+          updateUnifiedScrubber();
+          if (photoElapsed >= (item.duration || 5)) {
+            goToNextMedia();
+          }
+        }, 100);
+      } else {
+        if (playPauseIcon) playPauseIcon.textContent = '▶️';
+      }
+    } else if (item.type === 'video') {
+      // Hide Photo Stage
+      if (cinemaActivePhoto) {
+        cinemaActivePhoto.style.display = 'none';
+      }
+      // Show Video Player
+      if (friendVideoPlayer) {
+        friendVideoPlayer.style.display = 'block';
+        if (friendVideoPlayer.src !== item.src) {
+          friendVideoPlayer.src = item.src;
+          friendVideoPlayer.load();
+        }
+
+        if (isCinemaPlaying) {
+          friendVideoPlayer.play().then(() => {
+            if (playPauseIcon) playPauseIcon.textContent = '⏸️';
+          }).catch(() => {
+            // If video autoplay is blocked, pause gracefully
+            if (playPauseIcon) playPauseIcon.textContent = '▶️';
+          });
+        } else {
+          friendVideoPlayer.pause();
+          if (playPauseIcon) playPauseIcon.textContent = '▶️';
+        }
+      }
+    }
+  }
+
+  function goToNextMedia() {
+    currentMediaIndex = (currentMediaIndex + 1) % activeCinemaList.length;
+    renderCurrentMedia();
+  }
+
+  function goToPrevMedia() {
+    currentMediaIndex = (currentMediaIndex - 1 + activeCinemaList.length) % activeCinemaList.length;
+    renderCurrentMedia();
+  }
+
+  function toggleCinemaPlayPause() {
+    isCinemaPlaying = !isCinemaPlaying;
+    if (isCinemaPlaying) {
+      if (playPauseIcon) playPauseIcon.textContent = '⏸️';
+      const item = activeCinemaList[currentMediaIndex];
+      if (item && item.type === 'video' && friendVideoPlayer) {
+        friendVideoPlayer.play().catch(() => { });
+      } else {
+        renderCurrentMedia();
+      }
+    } else {
+      if (playPauseIcon) playPauseIcon.textContent = '▶️';
+      stopCinemaPlayback();
+    }
+  }
+
+  // Calculate & render scrubber progress across unified media
+  function updateUnifiedScrubber() {
+    if (isScrubbing || !activeCinemaList || activeCinemaList.length === 0) return;
+    const item = activeCinemaList[currentMediaIndex];
+    const totalItems = activeCinemaList.length;
+    let fraction = 0;
+
+    if (item.type === 'video' && friendVideoPlayer && friendVideoPlayer.duration) {
+      fraction = friendVideoPlayer.currentTime / friendVideoPlayer.duration;
+    } else {
+      fraction = Math.min(1, photoElapsed / (item.duration || 5));
+    }
+
+    const overallPct = ((currentMediaIndex + fraction) / totalItems) * 100;
+    if (scrubberProgressBar) {
+      scrubberProgressBar.style.width = `${Math.min(100, Math.max(0, overallPct))}%`;
+    }
+
+    if (ctrlTimeDisplay) {
+      const totalSec = totalItems * 5;
+      const curSec = Math.floor((overallPct / 100) * totalSec);
+      ctrlTimeDisplay.textContent = `${formatTime(curSec)} / ${formatTime(totalSec)}`;
+    }
+  }
+
+  // Seek to percentage on click/drag
+  function seekToCinemaPercent(pct) {
+    pct = Math.max(0, Math.min(1, pct));
+    if (scrubberProgressBar) {
+      scrubberProgressBar.style.width = `${pct * 100}%`;
+    }
+    const totalItems = activeCinemaList.length;
+    if (totalItems === 0) return;
+
+    const rawIdx = pct * totalItems;
+    const targetIdx = Math.min(totalItems - 1, Math.floor(rawIdx));
+    const itemFraction = rawIdx - targetIdx;
+
+    if (targetIdx !== currentMediaIndex) {
+      currentMediaIndex = targetIdx;
+      renderCurrentMedia();
+    }
+
+    const item = activeCinemaList[currentMediaIndex];
+    if (item.type === 'video' && friendVideoPlayer && friendVideoPlayer.duration) {
+      friendVideoPlayer.currentTime = itemFraction * friendVideoPlayer.duration;
+    } else {
+      photoElapsed = itemFraction * (item.duration || 5);
+    }
+
+    if (ctrlTimeDisplay) {
+      const totalSec = totalItems * 5;
+      const curSec = Math.floor(pct * totalSec);
+      ctrlTimeDisplay.textContent = `${formatTime(curSec)} / ${formatTime(totalSec)}`;
+    }
+  }
+
+  function handleScrubberPointer(e) {
+    if (!ctrlScrubberTrack) return;
+    const rect = ctrlScrubberTrack.getBoundingClientRect();
+    if (rect.width <= 0) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const pct = (clientX - rect.left) / rect.width;
+    seekToCinemaPercent(pct);
+  }
+
+  // Interactive YouTube Red Scrubber: Click and Drag scrubbing
+  if (ctrlScrubberContainer) {
+    ctrlScrubberContainer.addEventListener('mousedown', (e) => {
+      isScrubbing = true;
+      ctrlScrubberContainer.classList.add('is-scrubbing');
+      wasPlayingBeforeScrub = isCinemaPlaying;
+      stopCinemaPlayback();
+      handleScrubberPointer(e);
+    });
+
+    ctrlScrubberContainer.addEventListener('touchstart', (e) => {
+      isScrubbing = true;
+      ctrlScrubberContainer.classList.add('is-scrubbing');
+      wasPlayingBeforeScrub = isCinemaPlaying;
+      stopCinemaPlayback();
+      handleScrubberPointer(e);
+    }, { passive: true });
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isScrubbing) return;
+    e.preventDefault();
+    handleScrubberPointer(e);
+  });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isScrubbing) return;
+    handleScrubberPointer(e);
+  }, { passive: true });
+
+  window.addEventListener('mouseup', () => {
+    if (!isScrubbing) return;
+    isScrubbing = false;
+    if (ctrlScrubberContainer) ctrlScrubberContainer.classList.remove('is-scrubbing');
+    if (wasPlayingBeforeScrub) {
+      isCinemaPlaying = true;
+      const item = activeCinemaList[currentMediaIndex];
+      if (item && item.type === 'video' && friendVideoPlayer) {
+        friendVideoPlayer.play().catch(() => { });
+        if (playPauseIcon) playPauseIcon.textContent = '⏸️';
+      } else {
+        renderCurrentMedia();
+      }
+    }
+  });
+
+  window.addEventListener('touchend', () => {
+    if (!isScrubbing) return;
+    isScrubbing = false;
+    if (ctrlScrubberContainer) ctrlScrubberContainer.classList.remove('is-scrubbing');
+    if (wasPlayingBeforeScrub) {
+      isCinemaPlaying = true;
+      const item = activeCinemaList[currentMediaIndex];
+      if (item && item.type === 'video' && friendVideoPlayer) {
+        friendVideoPlayer.play().catch(() => { });
+        if (playPauseIcon) playPauseIcon.textContent = '⏸️';
+      } else {
+        renderCurrentMedia();
+      }
+    }
+  });
+
+  // Start Cinema Showcase (invoked when countdown reaches 0)
+  function startCinemaShowcase() {
+    isCinemaPlaying = true;
+    filterCinemaPlaylist(currentCinemaMode);
+  }
+
+  // Cinema Mode Switcher Pills
+  if (pillModeAll) {
+    pillModeAll.addEventListener('click', () => filterCinemaPlaylist('all'));
+  }
+  if (pillModePhotos) {
+    pillModePhotos.addEventListener('click', () => filterCinemaPlaylist('photos'));
+  }
+  if (pillModeVideos) {
+    pillModeVideos.addEventListener('click', () => filterCinemaPlaylist('videos'));
+  }
+
+  // Next / Previous Navigation (Chevrons & Buttons)
+  if (ctrlNextBtn) ctrlNextBtn.addEventListener('click', goToNextMedia);
+  if (ctrlPrevBtn) ctrlPrevBtn.addEventListener('click', goToPrevMedia);
+  if (screenChevronNext) screenChevronNext.addEventListener('click', goToNextMedia);
+  if (screenChevronPrev) screenChevronPrev.addEventListener('click', goToPrevMedia);
+
+  // Play / Pause Button
+  if (ctrlPlayPauseBtn) {
+    ctrlPlayPauseBtn.addEventListener('click', toggleCinemaPlayPause);
+  }
+
+  // Video Ended -> Advance to next memory
+  if (friendVideoPlayer) {
+    friendVideoPlayer.addEventListener('ended', () => {
+      goToNextMedia();
+    });
+    friendVideoPlayer.addEventListener('timeupdate', () => {
+      if (isScrubbing) return;
+      updateUnifiedScrubber();
+    });
+  }
+
+  if (ctrlVolumeBtn) {
+    ctrlVolumeBtn.addEventListener('click', () => {
+      if (friendVideoPlayer) {
+        friendVideoPlayer.muted = !friendVideoPlayer.muted;
+        if (volumeIcon) volumeIcon.textContent = friendVideoPlayer.muted ? '🔇' : '🔊';
+      }
+    });
+  }
+
+  if (ctrlFullscreenBtn) {
+    ctrlFullscreenBtn.addEventListener('click', () => {
+      const screen = document.getElementById('cinemaProjectionScreen');
+      if (!screen) return;
+      if (!document.fullscreenElement) {
+        screen.requestFullscreen().catch(() => { });
+      } else {
+        document.exitFullscreen().catch(() => { });
+      }
+    });
+  }
+
+  // Cinema Navigation Buttons
+  if (cinemaBackToMapBtn) {
+    cinemaBackToMapBtn.addEventListener('click', () => {
+      stopCinemaPlayback();
+      if (projectorCinemaPage) projectorCinemaPage.style.display = 'none';
+      if (flightMapPage) flightMapPage.style.display = 'flex';
+    });
+  }
+
+  if (cinemaBackToCakeBtn) {
+    cinemaBackToCakeBtn.addEventListener('click', () => {
+      stopCinemaPlayback();
+      if (projectorCinemaPage) projectorCinemaPage.style.display = 'none';
+      if (page2Container) page2Container.style.display = 'flex';
+    });
+  }
+
+  if (replayCountdownBtn) {
+    replayCountdownBtn.addEventListener('click', () => {
+      startCountdownSequence();
+    });
+  }
+
+  if (cinemaOpenLetterBtn) {
+    cinemaOpenLetterBtn.addEventListener('click', () => {
+      openLetterModal();
+    });
+  }
+
+  // Keyboard navigation for cinema screening (Left/Right arrow, Space)
+  window.addEventListener('keydown', (e) => {
+    if (projectorCinemaPage && projectorCinemaPage.style.display !== 'none') {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNextMedia();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrevMedia();
+      } else if (e.key === ' ' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        toggleCinemaPlayPause();
+      }
+    }
+  });
+
+  // Window resize keeps map pins & cinema beam aligned
+  window.addEventListener('resize', () => {
+    if (projectorCinemaPage && projectorCinemaPage.style.display !== 'none') {
+      updateBeamGeometry();
+    }
+  });
+
   // Navigation: Back to lock screen & Replay
   if (backToLockBtn) {
     backToLockBtn.addEventListener('click', () => {
       clearPage2Timeouts();
+      stopCinemaPlayback();
       page2Container.style.display = 'none';
       if (flightMapPage) flightMapPage.style.display = 'none';
+      if (projectorCinemaPage) projectorCinemaPage.style.display = 'none';
       passcodeStage.style.display = 'flex';
       currentPasscode = '';
       showCelebrationStep(1);

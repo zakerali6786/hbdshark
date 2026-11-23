@@ -1,0 +1,331 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 480" width="300" height="480" class="projector-vector-svg" aria-label="Stylized Cinema Projector on Tripod">
+  <defs>
+    <!-- Chassis Gradients -->
+    <linearGradient id="bodyTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3c3f4e" />
+      <stop offset="45%" stop-color="#2c2e39" />
+      <stop offset="100%" stop-color="#1f2029" />
+    </linearGradient>
+
+    <linearGradient id="bodySideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2c38" />
+      <stop offset="25%" stop-color="#1e1f28" />
+      <stop offset="85%" stop-color="#14151c" />
+      <stop offset="100%" stop-color="#0e0f14" />
+    </linearGradient>
+
+    <linearGradient id="bodyFrontGrad" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#232530" />
+      <stop offset="60%" stop-color="#181a22" />
+      <stop offset="100%" stop-color="#111218" />
+    </linearGradient>
+
+    <linearGradient id="metallicHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8e95a8" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#5a6073" stop-opacity="0.6" />
+    </linearGradient>
+
+    <!-- Lens Gradients -->
+    <linearGradient id="lensBarrelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a4d5e" />
+      <stop offset="30%" stop-color="#292a35" />
+      <stop offset="70%" stop-color="#171821" />
+      <stop offset="100%" stop-color="#323442" />
+    </linearGradient>
+
+    <linearGradient id="lensRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37" />
+      <stop offset="50%" stop-color="#8a7322" />
+      <stop offset="100%" stop-color="#ffd700" />
+    </linearGradient>
+
+    <radialGradient id="lensGlassGrad" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#e0f2fe" />
+      <stop offset="25%" stop-color="#38bdf8" />
+      <stop offset="60%" stop-color="#0284c7" />
+      <stop offset="85%" stop-color="#0c2340" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+
+    <!-- Tripod Leg & Metal Gradients -->
+    <linearGradient id="tripodTubeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#404352" />
+      <stop offset="35%" stop-color="#6b7280" />
+      <stop offset="65%" stop-color="#2d303b" />
+      <stop offset="100%" stop-color="#191a21" />
+    </linearGradient>
+
+    <linearGradient id="clampGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4a359" />
+      <stop offset="100%" stop-color="#7a541c" />
+    </linearGradient>
+
+    <radialGradient id="floorShadowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#000000" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- ================= FLOOR CONTACT SHADOWS ================= -->
+  <ellipse cx="150" cy="474" rx="130" ry="6" fill="url(#floorShadowGrad)" />
+  <ellipse cx="45" cy="474" rx="16" ry="4" fill="#000000" opacity="0.6" />
+  <ellipse cx="148" cy="452" rx="13" ry="3.5" fill="#000000" opacity="0.5" />
+  <ellipse cx="255" cy="474" rx="16" ry="4" fill="#000000" opacity="0.6" />
+
+  <!-- ================= TRIPOD LEGS (BACKSTAGE / REAR LEG FIRST) ================= -->
+  <!-- Center-Rear Leg (Extends in perspective from head down to x=148, y=450) -->
+  <g class="tripod-leg leg-center">
+    <!-- Upper Section (Dual tubes seen aligned in perspective) -->
+    <line x1="148" y1="188" x2="148" y2="295" stroke="#3b3e4d" stroke-width="6.5" stroke-linecap="round" />
+    <line x1="147.5" y1="188" x2="147.5" y2="295" stroke="#71788c" stroke-width="1.8" opacity="0.75" />
+    
+    <!-- Stage 1 Collar Lock -->
+    <rect x="143" y="295" width="10" height="9" rx="2" fill="#20222a" stroke="#484d60" stroke-width="1" />
+    <rect x="142" y="297" width="3" height="5" rx="1" fill="url(#clampGoldGrad)" />
+
+    <!-- Middle Section -->
+    <line x1="148" y1="304" x2="148" y2="390" stroke="#353846" stroke-width="5.5" stroke-linecap="round" />
+    <line x1="147.5" y1="304" x2="147.5" y2="390" stroke="#686f82" stroke-width="1.4" opacity="0.7" />
+
+    <!-- Stage 2 Collar Lock -->
+    <rect x="144" y="390" width="8" height="8" rx="2" fill="#20222a" stroke="#484d60" stroke-width="1" />
+    <rect x="143" y="392" width="2.5" height="4" rx="1" fill="url(#clampGoldGrad)" />
+
+    <!-- Extension Rod & Foot Pad -->
+    <line x1="148" y1="398" x2="148" y2="448" stroke="#4a4f61" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="147.5" y1="398" x2="147.5" y2="448" stroke="#7e859b" stroke-width="1.2" opacity="0.6" />
+    
+    <!-- Molded Studio Rubber Foot -->
+    <path d="M 142 446 L 154 446 L 152 451 L 144 451 Z" fill="#13141a" stroke="#2e3240" stroke-width="1" />
+  </g>
+
+  <!-- ================= TRIPOD SPREADER ARMS (STABILITY SPIDER) ================= -->
+  <g class="tripod-spreader">
+    <!-- Center Hub -->
+    <circle cx="148" cy="330" r="5.5" fill="#232530" stroke="#52576b" stroke-width="1.5" />
+    <circle cx="148" cy="330" r="2" fill="#8c94a8" />
+    
+    <!-- Left Strut (Links hub to left leg at 96, 330) -->
+    <line x1="144" y1="330" x2="97" y2="330" stroke="#353848" stroke-width="3" stroke-linecap="round" />
+    <line x1="144" y1="329.5" x2="97" y2="329.5" stroke="#686e82" stroke-width="1" opacity="0.6" />
+    <circle cx="97" cy="330" r="2.8" fill="#52576b" stroke="#1f212a" stroke-width="1" />
+
+    <!-- Center Strut (Links hub to center leg at 148, 305) -->
+    <line x1="148" y1="326" x2="148" y2="304" stroke="#2e313d" stroke-width="2.8" stroke-linecap="round" />
+
+    <!-- Right Strut (Links hub to right leg at 200, 330) -->
+    <line x1="152" y1="330" x2="199" y2="330" stroke="#353848" stroke-width="3" stroke-linecap="round" />
+    <line x1="152" y1="329.5" x2="199" y2="329.5" stroke="#686e82" stroke-width="1" opacity="0.6" />
+    <circle cx="199" cy="330" r="2.8" fill="#52576b" stroke="#1f212a" stroke-width="1" />
+  </g>
+
+  <!-- ================= TRIPOD FRONT LEGS (LEFT & RIGHT) ================= -->
+  <!-- Left Leg (Extends from 140,186 down to 45,472) -->
+  <g class="tripod-leg leg-left">
+    <!-- Dual-Tube Upper Stage -->
+    <line x1="140" y1="188" x2="97" y2="295" stroke="url(#tripodTubeGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="136" y1="188" x2="93" y2="295" stroke="url(#tripodTubeGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Metallic Specular Tube Highlights -->
+    <line x1="139" y1="189" x2="96" y2="294" stroke="#8c94a8" stroke-width="1" opacity="0.6" />
+    <!-- Dual-Tube Bridge Brackets -->
+    <line x1="119" y1="236" x2="114" y2="236" stroke="#1f212a" stroke-width="4" />
+    
+    <!-- Stage 1 Collar Lock -->
+    <polygon points="90,294 100,291 102,303 92,306" fill="#1b1c24" stroke="#424657" stroke-width="1" />
+    <rect x="88" y="296" width="3" height="6" rx="1" fill="url(#clampGoldGrad)" transform="rotate(-15 88 296)" />
+
+    <!-- Telescopic Middle Stage -->
+    <line x1="94" y1="305" x2="69" y2="395" stroke="url(#tripodTubeGrad)" stroke-width="5.5" stroke-linecap="round" />
+    <line x1="93" y1="305" x2="68" y2="395" stroke="#8c94a8" stroke-width="1.2" opacity="0.65" />
+
+    <!-- Stage 2 Collar Lock -->
+    <polygon points="66,394 74,392 76,403 68,405" fill="#1b1c24" stroke="#424657" stroke-width="1" />
+    <rect x="64" y="396" width="3" height="5" rx="1" fill="url(#clampGoldGrad)" transform="rotate(-15 64 396)" />
+
+    <!-- Telescopic Lower Rod & Studio Rubber Foot -->
+    <line x1="70" y1="404" x2="47" y2="471" stroke="#484c59" stroke-width="4" stroke-linecap="round" />
+    <!-- Heavy Rubber Molded Foot Pad -->
+    <path d="M 40 470 L 52 467 L 50 474 L 38 474 Z" fill="#121318" stroke="#2c2f3d" stroke-width="1.2" />
+  </g>
+
+  <!-- Right Leg (Extends from 156,188 down to 255,472) -->
+  <g class="tripod-leg leg-right">
+    <!-- Dual-Tube Upper Stage -->
+    <line x1="156" y1="188" x2="199" y2="295" stroke="url(#tripodTubeGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <line x1="160" y1="188" x2="203" y2="295" stroke="url(#tripodTubeGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Tube Highlight -->
+    <line x1="157" y1="189" x2="200" y2="294" stroke="#8c94a8" stroke-width="1" opacity="0.6" />
+    <!-- Dual-Tube Bridge Brackets -->
+    <line x1="177" y1="236" x2="182" y2="236" stroke="#1f212a" stroke-width="4" />
+
+    <!-- Stage 1 Collar Lock -->
+    <polygon points="196,291 206,294 204,306 194,303" fill="#1b1c24" stroke="#424657" stroke-width="1" />
+    <rect x="206" y="296" width="3" height="6" rx="1" fill="url(#clampGoldGrad)" transform="rotate(15 206 296)" />
+
+    <!-- Telescopic Middle Stage -->
+    <line x1="202" y1="305" x2="227" y2="395" stroke="url(#tripodTubeGrad)" stroke-width="5.5" stroke-linecap="round" />
+    <line x1="203" y1="305" x2="228" y2="395" stroke="#8c94a8" stroke-width="1.2" opacity="0.65" />
+
+    <!-- Stage 2 Collar Lock -->
+    <polygon points="224,392 232,394 230,405 222,403" fill="#1b1c24" stroke="#424657" stroke-width="1" />
+    <rect x="231" y="396" width="3" height="5" rx="1" fill="url(#clampGoldGrad)" transform="rotate(15 231 396)" />
+
+    <!-- Telescopic Lower Rod & Studio Rubber Foot -->
+    <line x1="226" y1="404" x2="253" y2="471" stroke="#484c59" stroke-width="4" stroke-linecap="round" />
+    <!-- Heavy Rubber Molded Foot Pad -->
+    <path d="M 246 467 L 258 470 L 260 474 L 248 474 Z" fill="#121318" stroke="#2c2f3d" stroke-width="1.2" />
+  </g>
+
+  <!-- ================= POWER CORD (LOOPS NATURALLY FROM REAR PORT) ================= -->
+  <path d="M 62 135 C 45 160, 48 220, 80 250 C 110 278, 125 350, 118 472" fill="none" stroke="#161820" stroke-width="3.5" stroke-linecap="round" />
+  <path d="M 62 135 C 45 160, 48 220, 80 250 C 110 278, 125 350, 118 472" fill="none" stroke="#323645" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+
+  <!-- ================= FLUID HEAD & MOUNTING APPARATUS ================= -->
+  <!-- Center Column Tube & Locking Collar -->
+  <rect x="144" y="160" width="8" height="28" rx="2" fill="#2d303b" stroke="#1a1c24" stroke-width="1" />
+  <line x1="147" y1="160" x2="147" y2="188" stroke="#5d6376" stroke-width="1.2" />
+  <rect x="141" y="174" width="14" height="6" rx="2" fill="#2d303d" stroke="#505569" stroke-width="1" />
+  
+  <!-- Fluid Pan-Tilt Head Assembly -->
+  <!-- Pan Arm (Extends backwards to the left) -->
+  <path d="M 142 165 C 120 170, 95 178, 72 176" fill="none" stroke="#262833" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M 72 176 L 62 175" stroke="#101116" stroke-width="7" stroke-linecap="round" /> <!-- Rubber Grip Handle -->
+  
+  <!-- Head Base & Swivel Joint -->
+  <ellipse cx="148" cy="164" rx="20" ry="7" fill="#20222a" stroke="#3d4152" stroke-width="1.5" />
+  <ellipse cx="148" cy="160" rx="17" ry="5.5" fill="#303340" />
+
+  <!-- Tilt Mechanism Lock Knob -->
+  <circle cx="128" cy="160" r="5" fill="#373b4a" stroke="#60667d" stroke-width="1.2" />
+  <line x1="125" y1="160" x2="131" y2="160" stroke="#8e96ac" stroke-width="1.5" />
+
+  <!-- Quick-Release Base Platform directly under Projector -->
+  <path d="M 120 148 L 176 148 L 182 155 L 114 155 Z" fill="#1b1c24" stroke="#484d60" stroke-width="1.2" />
+
+  <!-- ================= PROJECTOR CHASSIS (3D ISOMETRIC/OBLIQUE VIEW) ================= -->
+  <!-- VIEWPOINT: Facing right towards the screen, viewed from slightly above and left -->
+  <g class="projector-body-group" id="projectorBodyGroup">
+    
+    <!-- BOTTOM UNDERCARRIAGE SHADOW & CHASSIS LIP -->
+    <polygon points="68,142 205,134 238,142 98,150" fill="#0b0c10" opacity="0.9" />
+
+    <!-- 1. LEFT/SIDE PANEL (Faces viewer, extends from x=68 to x=205) -->
+    <!-- Base polygon -->
+    <polygon points="68,76 205,68 205,134 68,142" fill="url(#bodySideGrad)" stroke="#13141a" stroke-width="1.5" />
+    
+    <!-- Top Chamfer Bevel Highlight -->
+    <line x1="68" y1="76" x2="205" y2="68" stroke="url(#metallicHighlight)" stroke-width="1.2" opacity="0.75" />
+    <!-- Bottom Shadow Lip -->
+    <line x1="68" y1="142" x2="205" y2="134" stroke="#0d0e13" stroke-width="2" />
+
+    <!-- Side Cooling Ventilation Slats (Horizontal cine louvers) -->
+    <g class="side-vents" stroke="#0f1015" stroke-width="2.5" stroke-linecap="round">
+      <line x1="82" y1="92" x2="152" y2="88" />
+      <line x1="82" y1="99" x2="152" y2="95" />
+      <line x1="82" y1="106" x2="152" y2="102" />
+      <line x1="82" y1="113" x2="152" y2="109" />
+      <line x1="82" y1="120" x2="152" y2="116" />
+      <line x1="82" y1="127" x2="152" y2="123" />
+    </g>
+    <!-- Vent Inset Highlight lines -->
+    <g class="side-vents-hi" stroke="#363949" stroke-width="1" stroke-linecap="round" opacity="0.5">
+      <line x1="82" y1="93" x2="152" y2="89" />
+      <line x1="82" y1="100" x2="152" y2="96" />
+      <line x1="82" y1="107" x2="152" y2="103" />
+      <line x1="82" y1="114" x2="152" y2="110" />
+      <line x1="82" y1="121" x2="152" y2="117" />
+    </g>
+
+    <!-- Side Badge / Cine Plate -->
+    <rect x="162" y="90" width="34" height="16" rx="2" fill="#14151b" stroke="#3c4052" stroke-width="1" />
+    <text x="179" y="101" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="5.5" font-weight="800" fill="#9ea5b8" letter-spacing="1" text-anchor="middle">SHARK</text>
+
+    <!-- Power Toggle Switch & Cable Port (Rear Left) -->
+    <circle cx="76" cy="132" r="3.5" fill="#1b1c24" stroke="#434759" stroke-width="1" />
+    <circle cx="76" cy="132" r="1.8" fill="#111216" />
+
+    <!-- 2. TOP PANEL (Facing up, viewed in perspective) -->
+    <polygon points="68,76 96,62 232,54 205,68" fill="url(#bodyTopGrad)" stroke="#1a1c24" stroke-width="1.2" />
+    
+    <!-- Top Perimeter Inset Chamfer -->
+    <polygon points="73,75 98,64 227,57 202,67" fill="none" stroke="#484d61" stroke-width="0.8" opacity="0.6" />
+
+    <!-- Top Exhaust Grill & Control Cluster -->
+    <g class="top-details" opacity="0.85">
+      <!-- Heat Sink Exhaust Slats -->
+      <line x1="105" y1="64" x2="135" y2="62" stroke="#14151a" stroke-width="2" />
+      <line x1="108" y1="67" x2="138" y2="65" stroke="#14151a" stroke-width="2" />
+      <line x1="111" y1="70" x2="141" y2="68" stroke="#14151a" stroke-width="2" />
+      <!-- Power / Input Navigation Dials -->
+      <ellipse cx="165" cy="65" rx="4" ry="2" fill="#20222b" stroke="#52576b" stroke-width="0.8" />
+      <ellipse cx="178" cy="64" rx="3.5" ry="1.8" fill="#20222b" stroke="#52576b" stroke-width="0.8" />
+      <!-- Lens Zoom / Focus Barrel Sliders (Top Front) -->
+      <path d="M 205 61 L 217 60" stroke="#d4af37" stroke-width="2" stroke-linecap="round" />
+    </g>
+
+    <!-- 3. FRONT BEZEL PANEL (Facing Right Towards Screen: x=205 to x=238) -->
+    <polygon points="205,68 232,54 265,62 238,142 205,134" fill="url(#bodyFrontGrad)" stroke="#0e0f14" stroke-width="1.5" />
+    
+    <!-- Front Bezel Corner Ridge Highlights -->
+    <line x1="205" y1="68" x2="205" y2="134" stroke="url(#metallicHighlight)" stroke-width="1.5" opacity="0.8" />
+    <line x1="232" y1="54" x2="265" y2="62" stroke="url(#metallicHighlight)" stroke-width="1" opacity="0.6" />
+
+    <!-- Front Ventilation Air Intake (Next to Lens) -->
+    <g class="front-intake-grille" stroke="#0a0a0e" stroke-width="2" stroke-linecap="round">
+      <line x1="215" y1="84" x2="228" y2="81" />
+      <line x1="215" y1="92" x2="228" y2="89" />
+      <line x1="215" y1="100" x2="228" y2="97" />
+      <line x1="215" y1="108" x2="228" y2="105" />
+      <line x1="215" y1="116" x2="228" y2="113" />
+      <line x1="215" y1="124" x2="228" y2="121" />
+    </g>
+    <!-- Grille highlight glints -->
+    <g class="front-intake-hi" stroke="#3e4354" stroke-width="0.8" stroke-linecap="round" opacity="0.5">
+      <line x1="215" y1="85" x2="228" y2="82" />
+      <line x1="215" y1="93" x2="228" y2="90" />
+      <line x1="215" y1="101" x2="228" y2="98" />
+      <line x1="215" y1="109" x2="228" y2="106" />
+      <line x1="215" y1="117" x2="228" y2="114" />
+    </g>
+
+    <!-- Front Sensor Window & Power LED Socket -->
+    <rect x="234" y="126" width="6" height="5" rx="1.5" fill="#14151b" stroke="#3b3f50" stroke-width="0.8" />
+
+    <!-- ================= PROMINENT PROJECTION LENS ASSEMBLY ================= -->
+    <!-- The Lens points directly to the right, toward the screen -->
+    <!-- Base Mounting Collar on Front Bezel -->
+    <ellipse cx="242" cy="106" rx="9" ry="24" fill="#13141a" stroke="#3a3d4d" stroke-width="1.5" />
+
+    <!-- Knurled Focus Ring (Stepped Stage 1) -->
+    <path d="M 242 82 C 248 82, 252 92, 252 106 C 252 120, 248 130, 242 130 L 250 130 C 256 130, 260 120, 260 106 C 260 92, 256 82, 250 82 Z" fill="url(#lensBarrelGrad)" stroke="#1a1c24" stroke-width="1" />
+    
+    <!-- Anodized Gold Accent Cine Ring -->
+    <ellipse cx="251" cy="106" rx="4" ry="23" fill="none" stroke="url(#lensRingGrad)" stroke-width="1.8" />
+
+    <!-- Outer Lens Barrel (Stage 2) -->
+    <path d="M 251 84 C 257 84, 262 93, 262 106 C 262 119, 257 128, 251 128 L 263 128 C 269 128, 274 119, 274 106 C 274 93, 269 84, 263 84 Z" fill="url(#lensBarrelGrad)" stroke="#13141a" stroke-width="1.2" />
+
+    <!-- Barrel Highlight Reflections -->
+    <path d="M 252 86 C 258 86, 264 94, 264 106" fill="none" stroke="#7e859b" stroke-width="1.2" opacity="0.75" />
+
+    <!-- Lens Glass Aperture Rim / Bevel -->
+    <ellipse cx="264" cy="106" rx="8" ry="21" fill="#090a0f" stroke="#484d5f" stroke-width="1.5" />
+
+    <!-- OPTICAL GLASS ELEMENT (Front glass with antireflective optical coating) -->
+    <ellipse cx="265" cy="106" rx="6.5" ry="18" fill="url(#lensGlassGrad)" />
+
+    <!-- Lens Flare / Specular Crescent Reflection on Glass -->
+    <path d="M 264 92 C 268 95, 269 101, 269 106 C 269 110, 268 114, 265 117" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.85" />
+    <ellipse cx="263" cy="98" rx="2" ry="4" fill="#ffffff" opacity="0.7" />
+
+    <!-- Center Aperture Illuminator (Bright Core when Powered On) -->
+    <ellipse cx="266" cy="106" rx="4" ry="12" fill="#ffffff" opacity="0.95" filter="url(#softGlow)" />
+  </g>
+</svg>

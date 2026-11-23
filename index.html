@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>A Little Something For You ✨</title>
 
   <!-- Google Fonts -->
@@ -16,7 +19,7 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261124c">
 </head>
 
 <body>
@@ -360,8 +363,8 @@
             <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
             <!-- Center Spine Line -->
             <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
-            <!-- Heart Stamp on Wing -->
-            <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+            <!-- Sunglasses Stamp on Wing -->
+            <text x="34" y="24" font-size="12">😎</text>
           </svg>
 
           <!-- Floating Interactive Badge -->
@@ -411,7 +414,7 @@
         <polygon points="94,32 10,56 36,32" fill="#f5ebe0" stroke="#dfcbaf" stroke-width="1.2" />
         <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
         <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
-        <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+        <text x="34" y="24" font-size="12">😎</text>
       </svg>
       <div class="flight-wind-trail">
         <span class="w-line wl-1"></span>
@@ -535,7 +538,7 @@
             <polygon points="94,32 10,56 36,32" fill="#f5ebe0" stroke="#dfcbaf" stroke-width="1.2" />
             <polygon points="36,32 20,46 28,40 36,32" fill="#cebb9c" />
             <line x1="94" y1="32" x2="36" y2="32" stroke="#d5c0a1" stroke-width="1.5" />
-            <text x="34" y="24" font-size="12" fill="#e75a4d">❤️</text>
+            <text x="34" y="24" font-size="12">😎</text>
           </svg>
           <div class="plane-landing-sparkle">✨</div>
         </div>
@@ -552,7 +555,7 @@
 
           <!-- Framed Memory Photograph -->
           <div class="bubble-photo-frame">
-            <img src="assets/memory1.jpg" id="bubblePhoto" class="bubble-photo-img" alt="Memory Photo">
+            <img src="assets/map/1.jpeg" id="bubblePhoto" class="bubble-photo-img" alt="Memory Photo">
             <div class="bubble-photo-tape"></div>
           </div>
 
@@ -577,6 +580,246 @@
         </div>
 
       </div>
+    </div>
+
+  </section>
+
+  <!-- BLACKOUT TRANSITION OVERLAY (Sudden blackout transition when clicking AAGE) -->
+  <div class="blackout-overlay" id="blackoutOverlay" style="display: none;" aria-hidden="true"></div>
+
+  <!-- PAGE 4: PROJECTOR CINEMA & VIDEO SCREENING (Projector on Left, Beam in Center, 2D Screen on Right) -->
+  <section class="projector-cinema-page" id="projectorCinemaPage" style="display: none;"
+    aria-label="Shark's Birthday Cinema Screening">
+
+    <!-- Top Cinema Hall Navigation Bar -->
+    <header class="cinema-top-bar">
+      <div class="cinema-nav-group left-nav">
+        <button type="button" class="page2-nav-btn cinema-nav-btn" id="cinemaBackToMapBtn">
+          🗺️ Back to Map
+        </button>
+        <button type="button" class="page2-nav-btn cinema-nav-btn" id="cinemaBackToCakeBtn">
+          🎂 Back to Cake
+        </button>
+      </div>
+
+      <!-- Marquee Neon Theater Title -->
+      <div class="cinema-marquee-badge">
+        <span class="marquee-bulb"></span>
+        <span class="marquee-text">📽️ SHARK'S CINEMA • THE BIRTHDAY SCREENING 🎬</span>
+        <span class="marquee-bulb"></span>
+      </div>
+
+      <div class="cinema-nav-group right-nav">
+        <button type="button" class="page2-nav-btn cinema-nav-btn" id="replayCountdownBtn"
+          title="Replay 3-2-1 Countdown">
+          ↺ Replay 3-2-1
+        </button>
+        <button type="button" class="page2-nav-btn cinema-nav-btn letter-btn" id="cinemaOpenLetterBtn"
+          title="Read Birthday Letter">
+          💌 Birthday Letter
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Cinema Hall Stage Area -->
+    <div class="cinema-hall-stage" id="cinemaHallStage">
+
+      <!-- LEFT: The Projector Apparatus on Sturdy Tripod (Reference Image) -->
+      <div class="projector-apparatus-wrapper" id="projectorWrapper">
+        <div class="projector-rim-glow"></div>
+
+        <div class="projector-tripod-figure">
+          <img src="assets/projector_vector.svg" class="projector-vector-img" alt="Stylized Cinema Projector on Tripod">
+
+          <!-- Interactive Lens Emitter (Glows & flares when powered on) -->
+          <div class="projector-lens-emitter" id="projectorLensEmitter">
+            <div class="lens-glow-core"></div>
+            <div class="lens-sparkle-halo"></div>
+            <div class="lens-power-led" id="projectorPowerLed" title="Projector Power"></div>
+          </div>
+        </div>
+
+        <div class="projector-badge">
+          <span class="badge-status-dot"></span>
+          <span class="badge-label">SHARK-VISION 35MM</span>
+        </div>
+      </div>
+
+      <!-- CENTER: Dynamic Volumetric Light Beam connecting Lens to Screen -->
+      <div class="volumetric-beam-container" id="volumetricBeamContainer">
+        <svg class="beam-svg" id="beamSvg" width="100%" height="100%">
+          <defs>
+            <linearGradient id="beamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+              <stop offset="12%" stop-color="#ffffff" stop-opacity="0.55" />
+              <stop offset="65%" stop-color="#edf4fc" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0.08" />
+            </linearGradient>
+            <filter id="beamBlur" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="3" />
+            </filter>
+          </defs>
+          <polygon id="beamSvgPolygon" points="0,0 0,0 0,0 0,0" fill="url(#beamGradient)" filter="url(#beamBlur)" />
+        </svg>
+
+        <!-- Floating Dust Particles in the Light Beam -->
+        <div class="beam-dust-particles" id="beamDustParticles">
+          <span class="dust d1"></span>
+          <span class="dust d2"></span>
+          <span class="dust d3"></span>
+          <span class="dust d4"></span>
+          <span class="dust d5"></span>
+          <span class="dust d6"></span>
+          <span class="dust d7"></span>
+          <span class="dust d8"></span>
+          <span class="dust d9"></span>
+          <span class="dust d10"></span>
+        </div>
+      </div>
+
+      <!-- RIGHT: 2D Cinema Projection Screen -->
+      <div class="projection-screen-wrapper" id="projectionScreenWrapper">
+
+        <!-- Screen Hanging Rig (Top Bar & Hanging Cables) -->
+        <div class="screen-mounting-rig">
+          <div class="screen-cable cable-left"></div>
+          <div class="screen-bar-top"></div>
+          <div class="screen-cable cable-right"></div>
+
+          <!-- Cinema Mode Switcher: All Reel (Photos + Videos), Photos Only, Videos Only -->
+          <div class="cinema-mode-pills" id="cinemaModePills">
+            <button type="button" class="mode-pill active" data-mode="all" id="pillModeAll"
+              title="Screening: All Memories (Photos &amp; Videos)">🎞️ All Reel</button>
+            <button type="button" class="mode-pill" data-mode="photos" id="pillModePhotos"
+              title="Screening: Photos Only">📸 Photos</button>
+            <button type="button" class="mode-pill" data-mode="videos" id="pillModeVideos"
+              title="Screening: Videos Only">🎬 Videos</button>
+          </div>
+        </div>
+
+        <!-- The Projection Screen Frame -->
+        <div class="cinema-projection-screen" id="cinemaProjectionScreen">
+
+          <!-- Screen Ambient Backlight Glow onto dark wall -->
+          <div class="screen-ambient-glow" id="screenAmbientGlow"></div>
+
+          <!-- White Light Flash on Reel Transition -->
+          <div class="screen-light-flash" id="screenLightFlash"></div>
+
+          <!-- LAYER 1: Old Movie Countdown Leader (3... 2... 1...) -->
+          <div class="countdown-leader-layer" id="countdownLeaderLayer">
+            <!-- Film Scratches & Grain Overlay -->
+            <div class="film-grain-scratches"></div>
+
+            <!-- Concentric Crosshair Target -->
+            <div class="countdown-target">
+              <div class="target-crosshair ch-horizontal"></div>
+              <div class="target-crosshair ch-vertical"></div>
+              <div class="target-circle circle-outer"></div>
+              <div class="target-circle circle-inner"></div>
+              <!-- Rotating Radar Sweep Arm (360deg / second) -->
+              <div class="countdown-radar-sweep" id="countdownRadarSweep"></div>
+            </div>
+
+            <!-- Giant Countdown Number (3... 2... 1...) -->
+            <div class="countdown-number-display" id="countdownNumberDisplay">3</div>
+
+            <!-- Vintage Frame Stamps -->
+            <div class="film-stamp stamp-top">CINE-LEADER • HEAD</div>
+            <div class="film-stamp stamp-bottom">PICTURE START • 35MM SOUND ON FILM</div>
+          </div>
+
+          <!-- LAYER 2: Video Player & Showcase Screen Content -->
+          <div class="screen-content-layer" id="screenContentLayer" style="display: none;">
+
+            <!-- Unified Cinema Media Viewport (Photos & Videos) -->
+            <div class="cinema-media-viewport" id="cinemaMediaViewport">
+              <!-- Video Player (Shown during Video chapters) -->
+              <video id="friendVideoPlayer" class="friend-video-player" playsinline preload="metadata">
+                <source src="assets/friend_video1.mp4" type="video/mp4">
+              </video>
+
+              <!-- Photo Showcase Stage (Shown during Photo chapters) -->
+              <div class="slideshow-stage" id="slideshowStage">
+                <img src="assets/full_friend_photo.jpg" class="slide-media active" id="cinemaActivePhoto"
+                  alt="Friend Memory">
+                <img src="assets/full_friend_photo.jpg" class="slide-media" id="fallbackSlide1" alt="Friend Memory 1">
+                <img src="assets/memory1.jpg" class="slide-media" id="fallbackSlide2" alt="Memory 1">
+                <img src="assets/memory2.jpg" class="slide-media" id="fallbackSlide3" alt="Memory 2">
+                <img src="assets/memory3.jpg" class="slide-media" id="fallbackSlide4" alt="Memory 3">
+                <img src="assets/memory4.jpg" class="slide-media" id="fallbackSlide5" alt="Memory 4">
+                <img src="assets/snap.jpeg" class="slide-media" id="fallbackSlide6" alt="Memory 5">
+                <img src="assets/takla.jpeg" class="slide-media" id="fallbackSlide7" alt="Memory 6">
+              </div>
+
+              <!-- Retro Film Texture & Vintage Vignette -->
+              <div class="film-texture-layer"></div>
+
+              <!-- Interactive Left / Right Navigation Chevrons on the Screen -->
+              <button type="button" class="screen-nav-chevron chevron-prev" id="screenChevronPrev"
+                title="Previous Memory (←)" aria-label="Previous Memory">❮</button>
+              <button type="button" class="screen-nav-chevron chevron-next" id="screenChevronNext"
+                title="Next Memory (→)" aria-label="Next Memory">❯</button>
+
+              <!-- Media Type Indicator Badge (Top Left of Screen) -->
+              <div class="screen-type-tag" id="screenTypeTag">
+                <span class="type-icon" id="screenTypeIcon">📸</span>
+                <span class="type-text" id="screenTypeText">PHOTO</span>
+                <span class="type-counter" id="screenCounter">1 / 8</span>
+              </div>
+
+              <!-- Dynamic Slide Subtitle Banner -->
+              <div class="cinema-subtitle-banner" id="cinemaSubtitleBanner">
+                <span class="sub-badge" id="subBadge">CHAPTER 01</span>
+                <p class="sub-text" id="subText">The legend of Shark begins... ✨ Happy Birthday!</p>
+              </div>
+            </div>
+
+            <!-- Screen Lens Vignette & Film Borders -->
+            <div class="screen-lens-vignette"></div>
+
+            <!-- Cinema Player Custom Controls Bar -->
+            <div class="cinema-player-controls" id="cinemaPlayerControls">
+              <button type="button" class="ctrl-btn prev-btn" id="ctrlPrevBtn" title="Previous (←)">
+                <span class="ctrl-icon">⏮️</span>
+              </button>
+
+              <button type="button" class="ctrl-btn play-pause-btn" id="ctrlPlayPauseBtn" title="Play / Pause (Space)">
+                <span class="ctrl-icon" id="playPauseIcon">⏸️</span>
+              </button>
+
+              <button type="button" class="ctrl-btn next-btn" id="ctrlNextBtn" title="Next (→)">
+                <span class="ctrl-icon">⏭️</span>
+              </button>
+
+              <div class="ctrl-scrubber-container" id="ctrlScrubberContainer" title="Drag to scrub through memories">
+                <div class="ctrl-scrubber-track" id="ctrlScrubberTrack">
+                  <div class="scrubber-buffered-bar" id="scrubberBufferedBar"></div>
+                  <div class="scrubber-progress-bar" id="scrubberProgressBar">
+                    <div class="scrubber-thumb" id="scrubberThumb"></div>
+                  </div>
+                </div>
+              </div>
+
+              <span class="ctrl-time" id="ctrlTimeDisplay">00:00 / 00:35</span>
+
+              <button type="button" class="ctrl-btn volume-btn" id="ctrlVolumeBtn" title="Mute / Unmute">
+                <span class="ctrl-icon" id="volumeIcon">🔊</span>
+              </button>
+
+              <button type="button" class="ctrl-btn fullscreen-btn" id="ctrlFullscreenBtn" title="Fullscreen">
+                <span class="ctrl-icon">⛶</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Bottom Screen Bar Tensioner -->
+          <div class="screen-bar-bottom"></div>
+        </div>
+
+      </div>
+
     </div>
 
   </section>
@@ -615,7 +858,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20261124d"></script>
 </body>
 
 </html>
