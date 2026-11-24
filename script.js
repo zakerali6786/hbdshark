@@ -1,10 +1,11 @@
 /**
- * BIRTHDAY WEBSITE - INTERACTIVE PASSCODE CONTROLLER
- * Required Passcode: 0911
+ * BIRTHDAY WEBSITE - SECURE INTERACTIVE EXPERIENCE
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const CORRECT_PASSCODE = '9820';
+  // Secure Salted SHA-256 One-Way Authentication Hash (No plaintext passcode in client code)
+  const AUTH_SALT = 'shark_bday_secret_salt_2026';
+  const AUTH_HASH = 'd7234509e8b9d6c642a9b3e836b0520e5c0b6ad1df5d100a66e0fdd18ab5f711';
   const MAX_DIGITS = 4;
 
   let currentPasscode = '';
@@ -600,8 +601,8 @@ document.addEventListener('DOMContentLoaded', () => {
     feedbackBanner.style.color = isError ? '#8c2a1a' : '#236c39';
   }
 
-  // Verify Passcode
-  function verifyPasscode() {
+  // Verify Passcode with Salted SHA-256 Cryptographic Hash
+  async function verifyPasscode() {
     if (isChecking) return;
 
     if (currentPasscode.length < MAX_DIGITS) {
@@ -616,7 +617,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     isChecking = true;
 
-    if (currentPasscode === CORRECT_PASSCODE) {
+    // Secure One-Way Cryptographic Hash Check
+    const encoder = new TextEncoder();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(currentPasscode + AUTH_SALT));
+    const enteredHash = Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    if (enteredHash === AUTH_HASH) {
       // SUCCESS!
       slots.forEach(s => s.classList.add('success'));
       showFeedback('Passcode accepted! ✨', false);
@@ -2095,4 +2103,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   updateDisplay();
+
+  // Developer Helper: Generate a secure hash for any new passcode
+  // Open DevTools console and run: generatePasscodeHash("1234")
+  window.generatePasscodeHash = async function(pin) {
+    const encoder = new TextEncoder();
+    const buf = await crypto.subtle.digest('SHA-256', encoder.encode(String(pin) + 'shark_bday_secret_salt_2026'));
+    const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    console.log(`Copy this hash for PIN "${pin}":\n${hex}`);
+    return hex;
+  };
 });
