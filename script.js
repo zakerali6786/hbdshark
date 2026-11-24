@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Secure Salted SHA-256 One-Way Authentication Hash (No plaintext passcode in client code)
   const AUTH_SALT = 'shark_bday_secret_salt_2026';
-  const AUTH_HASH = 'd7234509e8b9d6c642a9b3e836b0520e5c0b6ad1df5d100a66e0fdd18ab5f711';
+  const AUTH_HASH = '62ad721f9a95bd5a133eb36758b38f97e475279932acabacd6d0b8b9f5b95fc2';
   const MAX_DIGITS = 4;
 
   let currentPasscode = '';
@@ -1534,7 +1534,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'The Ultimate Shark Highlight Reel 🦈🎥',
       duration: 15
     }
-  ];
+  ]; 
 
   let currentCinemaMode = 'all'; // 'all' | 'photos' | 'videos'
   let activeCinemaList = [...masterCinemaPlaylist];
